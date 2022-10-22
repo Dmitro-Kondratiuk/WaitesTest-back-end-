@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\rules\AuthorRole;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -126,21 +127,33 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    public function actionRole(){
-//        $admin = Yii::$app->authManager->createRole('admin');
-//        $admin->description = "Администратор";
-//        Yii::$app->authManager->add($admin);
+    public function actionRole()
+    {
+        $user = Yii::$app->authManager->createRole('user');
+        $user->description = "Пользиватель";
+        Yii::$app->authManager->add($user);
 //
 //        $admin = Yii::$app->authManager->createPermission('canAdmin');
 //        $admin->description = "Право на вход в админку";
 //        Yii::$app->authManager->add($admin);
+//        $user = Yii::$app->authManager->createPermission('updatePost');
+//        $user->description = "Право на редактирование постов";
+//        Yii::$app->authManager->add($user);
 //
 //        $role = Yii::$app->authManager->getRole('admin');
-//        $permit = Yii::$app->authManager->getPermission('canAdmin');
+//        $permit = Yii::$app->authManager->getPermission('updatePost');
 //        Yii::$app->authManager->addChild($role,$permit);
 //
 //        $userRole = Yii::$app->authManager->getRole('admin');
 //        Yii::$app->authManager->assign($userRole,1);
+//        $auth = Yii::$app->authManager;
+//        $rule = new AuthorRole();
+////        $auth->add($rule);
+//        $updateOwnPost = $auth->createPermission('updateOwnPost');
+//        $updateOwnPost->description = "Редактирование собственных постов";
+//        $auth->add($updateOwnPost);
+
+
         return " Я все сделал";
     }
 }

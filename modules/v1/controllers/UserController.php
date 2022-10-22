@@ -21,7 +21,7 @@ class UserController extends BaseApiController
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['login', 'register','me'],
+                        'actions' => ['login', 'register', 'me','logout'],
                         'roles' => ['?'],
                     ],
                     [
@@ -85,6 +85,8 @@ class UserController extends BaseApiController
             $model->email = $item['email'];
             $model->validate();
             if ($model->save()) {
+                $userRole = Yii::$app->authManager->getRole('user');
+                Yii::$app->authManager->assign($userRole, $model->id);
                 return [
                     'resultCode' => 0
                 ];

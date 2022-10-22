@@ -18,7 +18,7 @@ class PostController extends BaseApiController
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['update','index','create','delete','view'],
+                        'actions' => ['update', 'index', 'create', 'delete', 'view'],
                         'roles' => ['@'],
                     ],
                     [
@@ -32,6 +32,7 @@ class PostController extends BaseApiController
     }
 
     public $modelClass = 'app\models\Posts';
+
     public function actions()
     {
         $actions = parent::actions();
@@ -44,7 +45,7 @@ class PostController extends BaseApiController
                 'sort' => [
                     'defaultOrder' => [
                         'price' => SORT_ASC,
-                        'created_at'=>SORT_ASC
+                        'created_at' => SORT_ASC
                     ],
                 ],
             ],
@@ -64,7 +65,7 @@ class PostController extends BaseApiController
         $model->save();
         if ($model->save()) {
             return [
-                'id'=>$model->id,
+                'id' => $model->id,
                 'resultCode' => 0
             ];
         } else {
@@ -93,21 +94,22 @@ class PostController extends BaseApiController
 
     public function actionUpdate()
     {
-        $arr = Yii::$app->request->bodyParams;
-        $model = Posts::findOne($_GET['id']);
-        $model->name = $arr['name'];
-        $model->description = $arr['description'];
-        $model->price = $arr['price'];
-        $model->links = $arr['links'];
-        $model->validate();
-        if ($model->save()) {
-            return ['resultCode' => 0];
-        } else {
-            return [
-                'resultCode' => 1
-            ];
+
+            $arr = Yii::$app->request->bodyParams;
+            $model = Posts::findOne($_GET['id']);
+            $model->name = $arr['name'];
+            $model->description = $arr['description'];
+            $model->price = $arr['price'];
+            $model->links = $arr['links'];
+            $model->validate();
+            if ($model->save()) {
+                return ['resultCode' => 0];
+            } else {
+                return [
+                    'resultCode' => 1
+                ];
+            }
         }
-    }
 
 
 
