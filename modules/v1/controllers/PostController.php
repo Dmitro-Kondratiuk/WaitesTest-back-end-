@@ -55,14 +55,14 @@ class PostController extends BaseApiController
 
     public function actionCreate()
     {
-        $arr = Yii::$app->request->bodyParams;
+        $arr = Yii::$app->request->post();
         $model = new Posts();
         $model->name = $arr['name'];
         $model->description = $arr['description'];
         $model->price = $arr['price'];
         $model->links = $arr['links'];
         $model->user_id = Yii::$app->user->identity->id;
-        $model->save();
+        $model->validate();
         if ($model->save()) {
             return [
                 'id' => $model->id,
@@ -95,8 +95,9 @@ class PostController extends BaseApiController
     public function actionUpdate()
     {
 
-            $arr = Yii::$app->request->bodyParams;
-            $model = Posts::findOne($_GET['id']);
+        $arr = Yii::$app->request->post();
+        $model = Posts::findOne($_GET['id']);
+        if(Yii::$app->user->can('updatePost', ['author_id' =>$model->user_id])){
             $model->name = $arr['name'];
             $model->description = $arr['description'];
             $model->price = $arr['price'];
@@ -109,9 +110,13 @@ class PostController extends BaseApiController
                     'resultCode' => 1
                 ];
             }
+        }else{
+            return [
+                'error'=>'Отказ',
+            ];
         }
 
-
+    }
 
 
 }

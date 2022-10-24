@@ -75,7 +75,7 @@ class UserController extends BaseApiController
 //Register()- method POST
     public function actionRegister()
     {
-        $item = Yii::$app->request->bodyParams;
+        $item = Yii::$app->request->post();
         $model = new Users();
         if (!Users::findOne(['username'=>$item['username']])) {
             $model->username = $item['username'];
@@ -108,7 +108,7 @@ class UserController extends BaseApiController
     public function actionLogin()
     {
 
-        $arr = Yii::$app->request->bodyParams;
+        $arr = Yii::$app->request->post();
         $model = Users::findOne(['username' => $arr['username']]);
         if ($model->username) {
             if ($model->password == Yii::$app->getSecurity()->validatePassword($arr['password'], $model['password'])) {

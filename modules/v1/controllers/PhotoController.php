@@ -3,6 +3,7 @@
 namespace app\modules\v1\controllers;
 
 use app\models\Photos;
+use Yii;
 
 class PhotoController extends BaseApiController
 {
@@ -17,7 +18,7 @@ class PhotoController extends BaseApiController
 
     public function actionCreate()
     {
-        $arr = \Yii::$app->request->bodyParams;
+        $arr = Yii::$app->request->post();
         if(!count($arr['photos']) > 3){
             foreach ($arr['photos'] as $photo) {
                 $model = new Photos();
