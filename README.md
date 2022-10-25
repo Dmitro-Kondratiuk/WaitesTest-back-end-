@@ -4,7 +4,7 @@
 виконюється за допомогою [RBAC](https://www.yiiframework.com/doc/guide/2.0/en/security-authorization). Тобто 
 доступ до всіх юзерів має тільки користувач з правами доступу адмін, інші мають право на перегляд постів.В ході розробки 
 використовувався як локальний сервер [OpenServer](https://ru.wikipedia.org/wiki/Xinuos_OpenServer) version(5.4.1) 
-Налаштуввання: база даних MySQL-5.7, PHP_7.2,HTTP Apache_2.4-PHP_7.2-7.4
+Налаштуввання: база даних MySQL-5.7, PHP_7.2, HTTP Apache_2.4-PHP_7.2-7.4
 ## Встановлення 
 1. Склонувати цей з github
 ## Налаштування
