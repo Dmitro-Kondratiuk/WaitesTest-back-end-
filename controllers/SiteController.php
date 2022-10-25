@@ -132,6 +132,8 @@ class SiteController extends Controller
         $user = Yii::$app->authManager->createRole('admin');
         $user->description = "admin";
         Yii::$app->authManager->add($user);
+        $userRole = Yii::$app->authManager->getRole('admin');
+        Yii::$app->authManager->assign($userRole, $model->id);
 
         $user = Yii::$app->authManager->createRole('user');
         $user->description = "user";
