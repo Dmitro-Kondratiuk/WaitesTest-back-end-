@@ -85,11 +85,19 @@ class UserController extends BaseApiController
             $model->email = $item['email'];
             $model->validate();
             if ($model->save()) {
-                $userRole = Yii::$app->authManager->getRole('user');
-                Yii::$app->authManager->assign($userRole, $model->id);
-                return [
-                    'resultCode' => 0
-                ];
+                if($model->id == 1){
+                    $userRole = Yii::$app->authManager->getRole('admin');
+                    Yii::$app->authManager->assign($userRole, $model->id);
+                    return [
+                        'resultCode'=>0,
+                    ];
+                }else{
+                    $userRole = Yii::$app->authManager->getRole('user');
+                    Yii::$app->authManager->assign($userRole, $model->id);
+                    return [
+                        'resultCode' => 0
+                    ];
+                }
             } else {
                 return [
                     'error' => 'Fields are not checked',

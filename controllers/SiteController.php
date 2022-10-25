@@ -129,12 +129,15 @@ class SiteController extends Controller
 
     public function actionRole()
     {
-        $userRole = Yii::$app->authManager->getRole('admin');
-        Yii::$app->authManager->assign($userRole, 1);
+        $user = Yii::$app->authManager->createRole('admin');
+        $user->description = "admin";
+        Yii::$app->authManager->add($user);
 
         $user = Yii::$app->authManager->createRole('user');
-        $user->description = "Пользиватель";
+        $user->description = "user";
         Yii::$app->authManager->add($user);
+
+
 
         $admin = Yii::$app->authManager->createPermission('canAdmin');
         $admin->description = "Право на вход в админку";
@@ -155,6 +158,10 @@ class SiteController extends Controller
         $updateOwnPost = $auth->createPermission('updateOwnPost');
         $updateOwnPost->description = "Редактирование собственных постов";
         $auth->add($updateOwnPost);
+
+        $role = Yii::$app->authManager->getRole('user');
+        $permit = Yii::$app->authManager->getPermission('updateOwnPost');
+        Yii::$app->authManager->addChild($role,$permit);
 
 
         return " Я все сделал";
