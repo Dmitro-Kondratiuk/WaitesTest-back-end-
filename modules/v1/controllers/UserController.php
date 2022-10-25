@@ -21,17 +21,17 @@ class UserController extends BaseApiController
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['login', 'register', 'me','logout'],
+                        'actions' => ['login', 'register', 'me', 'logout'],
                         'roles' => ['?'],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['logout','me','update','view'],
+                        'actions' => ['logout', 'me', 'update', 'view'],
                         'roles' => ['@'],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['index', 'view', 'create', 'update', 'delete','logout'],
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'logout'],
                         'roles' => ['admin'],
                     ],
                 ],
@@ -77,7 +77,7 @@ class UserController extends BaseApiController
     {
         $item = Yii::$app->request->post();
         $model = new Users();
-        if (!Users::findOne(['username'=>$item['username']])) {
+        if (!Users::findOne(['username' => $item['username']])) {
             $model->username = $item['username'];
             $model->password = Yii::$app->getSecurity()->generatePasswordHash($item['password']);
             $model->name = $item['name'];
@@ -85,12 +85,18 @@ class UserController extends BaseApiController
             $model->email = $item['email'];
             $model->validate();
             if ($model->save()) {
-                if($model->id == 1){
+                if($model->id === 1) {
+                    return [
+                        'resultCode' => 0
+                    ];
+                } else {
                     $userRole = Yii::$app->authManager->getRole('user');
                     Yii::$app->authManager->assign($userRole, $model->id);
                     return [
                         'resultCode' => 0
                     ];
+                }
+
             } else {
                 return [
                     'error' => 'Fields are not checked',
